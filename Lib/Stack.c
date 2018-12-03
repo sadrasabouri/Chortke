@@ -7,8 +7,12 @@ Last update by Sadra Sabouri @ 1:00 PM | 3 December 2018.
 #define SIZE 50
 
 int I_n = -1, I_c = -1;
-int pop(int arr[]);//arr : the stack that we want to pop.
-void push(int arr[], int x);//arr : the stack that we want to push in | x : the number wanted to be pushed.
+int pop_n(int arr[]);//arr : the stack that we want to pop.
+void push_n(int arr[], int x);//arr : the stack that we want to push in | x : the number wanted to be pushed.
+
+char pop_c(char arr[]);//arr : the stack that we want to pop.
+void push_c(char arr[], char x);//arr : the stack that we want to push in | x : the number wanted to be pushed.
+
 
 int main(){
   int stack[SIZE], n;
