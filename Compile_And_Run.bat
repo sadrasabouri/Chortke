@@ -1,0 +1,1 @@
+gcc -o Chortke Chortke.c ".\Lib\UI.c" ".\Lib\Processing.c" && .\Chortke.exe
