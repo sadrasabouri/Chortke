@@ -6,18 +6,40 @@ Last update by Hanieh Tajer && Amirali Ekhteraee && Sadra Sabouri  @ 7:10 PM | 3
 #include <string.h>
 #include <stdlib.h>	
 
+#include "Stack.h"
+
 #define SIZE 50
 
-int num_stack[SIZE];
-char char_stack[SIZE]; 
+float num_stack[SIZE];//Our Stack for integer numbers.
+char char_stack[SIZE]; // And for characters.
 int I_n = -1, I_c = -1;
-int pop_n(int arr[]);//arr : the num_stack that we want to pop.
-void push_n(int arr[], int x);//arr : the num_stack that we want to push in | x : the number wanted to be pushed.
+float pop_n();
+void push_n(float x);// x : the number wanted to be pushed.
 
-char pop_c(char arr[]);//arr : the num_stack that we want to pop.
-void push_c(char arr[], char x);//arr : the num_stack that we want to push in | x : the number wanted to be pushed.
+char pop_c();
+void push_c(char x);// x : the number wanted to be pushed.
 
+float pop_n(){
+  if (I_n >= 0) // Stack isn't empty!
+    return num_stack[I_n--];//pop the late added number to num_stack and move pointer one block back.
+  else
+	  printf("Stack is Empty:)\n");
+}
+void push_n(float x){
+  num_stack[++I_n] = x;//set the (i+1)th block to x and then move pointer one block forward.
+}
 
+char pop_c(){
+  if (I_c >= 0) // Stack isn't empty!
+    return char_stack[I_c--];//pop the late added number to num_stack and move pointer one block back.
+  else
+	  printf("Stack is Empty:)\n");
+}
+void push_c(char x){
+  char_stack[++I_c] = x;//set the (i+1)th block to x and then move pointer one block forward.
+}
+/*
+		---- For test Stack.c ---
 int main(){
   int t = 0;
   char c, tmp[20];
@@ -54,23 +76,4 @@ int main(){
   }while(c != 'q');
   return 0;
 }
-
-int pop_n(int arr[]){
-  if (I_n >= 0) // Stack isn't empty!
-    return arr[I_n--];//pop the late added number to num_stack and move pointer one block back.
-  else
-	  printf("Stack is Empty:)\n");
-}
-void push_n(int arr[], int x){
-  arr[++I_n] = x;//set the (i+1)th block to x and then move pointer one block forward.
-}
-
-char pop_c(char arr[]){
-  if (I_c >= 0) // Stack isn't empty!
-    return arr[I_c--];//pop the late added number to num_stack and move pointer one block back.
-  else
-	  printf("Stack is Empty:)\n");
-}
-void push_c(char arr[], char x){
-  arr[++I_c] = x;//set the (i+1)th block to x and then move pointer one block forward.
-}
+*/
