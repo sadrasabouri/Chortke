@@ -1,20 +1,17 @@
 #include <stdio.h>
-#include <string.h>
 
 #include ".\Lib\UI.h"
+#include ".\Lib\Stack.h"
 
 int main()
 {
-	char statement[10000];
+	int is_continue;
 	greeting();
 	do
 	{
-		
-		input(&statement[0]);
-		output(statement);
-		
+		is_continue = input();
 	}
-	while(strcmp(statement, "quit"));
+	while(is_continue);
 	bye();
 	return 0;
 }

@@ -3,29 +3,40 @@ Our library for string processing :
 */
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include "Stack.h"
 #include "Processing.h"
 
-void put_in(char *input_str);
+int put_in();
 
-void put_in(char *input_str)
+int put_in()
 {
+	char c, tmp[50], statement[10000];
+	int is_on_num = 0, i = 0, k = 0;
+	while(1)
+	{
+		c = getchar();
+		if(( '0' <= c && c <= '9' )|| c == '.')//if character is number of dots.
+			tmp[i++] = c;
+		else
+		{
+			if(i != 0)
+			{
+				tmp[i] = 0;
+				push_n(atof(tmp));
+			}
+			i = 0;
+			if(c == '+' || c == '-' || c == '/' || c == '*')
+				push_c(c);
+			if(c == '\n')
+				break;
+		}
+		statement[k++] = c; 
+	}
+	statement[k] = 0;
+	return strcmp(statement, "quit");
 	/*
-	
-	Your Work Here!
-	To push in operators : push_c(c);
-	which c is character!
-	like : push_c('+');
-	
-	To push in operators : push_n(a);
-	which c is character!
-	like : push_n(52.1);
-	*/
-	
-	/*
-		
 	--- This code erase spaces ---
-	
 	char tmp[10000];
 	gets(tmp);
 	int i, n = strlen(tmp), j = 0;

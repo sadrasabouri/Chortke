@@ -10,7 +10,7 @@ Our library for interacting with user:
 //Prototypes :
 void greeting();
 void bye();
-void input(char *input_str);
+int input();
 void output(char output_str[10000]);
 
 void greeting()
@@ -19,11 +19,11 @@ void greeting()
 	puts(str);
 }
 
-void input(char *input_str)
+int input()
 {
-	char str[] = "Please input your algebraic equation : ";	// Add description!
+	char str[] = "Please input your algebraic equation (Or \"quit\" for exit from program): ";	// Add description!
 	puts(str);
-	put_in(input_str);
+	return put_in();
 }
 
 void output(char output_str[10000])

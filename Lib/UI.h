@@ -3,7 +3,7 @@
 
 void greeting();
 void bye();
-void input(char *input_str);
+int input();
 void output(char output_str[10000]);
 
 #endif
