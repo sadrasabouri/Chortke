@@ -1,7 +1,7 @@
 #include <stdio.h>
 
-#include ".\Lib\UI.h"
-#include ".\Lib\Stack.h"
+#include "./Lib/UI.h"
+#include "./Lib/Stack.h"
 
 int main()
 {
