@@ -26,7 +26,7 @@ int put_in()
 				push_n(atof(tmp));
 			}
 			i = 0;
-			if(c == '+' || c == '-' || c == '/' || c == '*')
+			if(c == '+' || c == '-' || c == '/' || c == '*' || c == ')' || c == '(')
 				push_c(c);
 			if(c == '\n')
 				break;

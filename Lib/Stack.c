@@ -10,7 +10,7 @@ Last update by Hanieh Tajer && Amirali Ekhteraee && Sadra Sabouri  @ 7:10 PM | 3
 
 #define SIZE 50
 
-float num_stack[SIZE];//Our Stack for integer numbers.
+float num_stack[SIZE];//Our Stack for float numbers.
 char char_stack[SIZE]; // And for characters.
 int I_n = -1, I_c = -1;
 float pop_n();
