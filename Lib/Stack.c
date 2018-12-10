@@ -15,10 +15,18 @@ char char_stack[SIZE]; // And for characters.
 int I_n = -1, I_c = -1;
 float pop_n();
 void push_n(float x);// x : the number wanted to be pushed.
+int get_i_n();
 
 char pop_c();
 void push_c(char x);// x : the number wanted to be pushed.
+int get_i_c();
 
+int get_i_n(){
+  return I_n;
+}
+int get_i_c(){
+  return I_c;
+}
 float pop_n(){
   if (I_n >= 0) // Stack isn't empty!
     return num_stack[I_n--];//pop the late added number to num_stack and move pointer one block back.
