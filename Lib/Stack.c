@@ -13,6 +13,8 @@ Last update by Hanieh Tajer && Amirali Ekhteraee && Sadra Sabouri  @ 7:10 PM | 3
 float num_stack[SIZE];//Our Stack for float numbers.
 char char_stack[SIZE]; // And for characters.
 int I_n = -1, I_c = -1;
+
+void reverse();
 float pop_n();
 void push_n(float x);// x : the number wanted to be pushed.
 int get_i_n();
@@ -52,6 +54,20 @@ char show_last_c(){
 }
 void push_c(char x){
   char_stack[++I_c] = x;//set the (i+1)th block to x and then move pointer one block forward.
+}
+void reverse(){
+	int tmp_num, n1 = I_n + 1, n2 = I_c + 1;
+	char tmp_char;
+	for(int i = 0; i < n1; ++i){
+	tmp_num = num_stack[i];
+	num_stack[i] = num_stack[n1 - i - 1];
+	num_stack[n1 - i - 1] = tmp_num;	
+	}	
+	for(int j = 0; j < n2; ++j){
+	tmp_char = char_stack[j];
+	char_stack[j] = char_stack[n2 - j - 1];
+	char_stack[n2 - j - 1] = tmp_char;	
+	}
 }
 /*
   ---- For test Stack.c ---

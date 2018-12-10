@@ -13,6 +13,7 @@ int main()
   is_continue = input();
   if(is_continue)
   {
+	reverse();
 	Calculate();
   	printf("Result is : %f\n", pop_n());
   }

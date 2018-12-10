@@ -15,7 +15,7 @@ float a, b;//Two number we want to calculate them in each section.
 
 int put_in()
 {
- char c, tmp[50], statement[10000];
+ char c, tmp[50], statement[10000], last_operator;
  int is_on_num = 0, i = 0, k = 0;
  while(1)
  {
@@ -58,15 +58,15 @@ void Calculate(){
   break;  
   case '+':
    a = pop_n();
-   b = pop_n();
    Calculate();
+   b = pop_n();
    push_n(a + b);  
   break;
   case '-':
    a = pop_n();
-   b = pop_n();
    Calculate();
-   push_n(b - a);  
+   b = pop_n();
+   push_n(a - b);  
   break;  
   case '*':
    a = pop_n();
@@ -77,7 +77,7 @@ void Calculate(){
   case '/':
    a = pop_n();
    b = pop_n();
-   push_n(b / a);
+   push_n(a / b);
    Calculate();  
   break;
  }
