@@ -15,26 +15,26 @@ void output(char output_str[10000]);
 
 void greeting()
 {
-	char str[] = "Welcome to \"Chortke\"!"; // Add description!
-	puts(str);
+ char str[] = "Welcome to \"Chortke\"!"; // Add description!
+ puts(str);
 }
 
 int input()
 {
-	char str[] = "Please input your algebraic equation (Or \"quit\" for exit from program): ";	// Add description!
-	puts(str);
-	return put_in();
+ char str[] = "Please input your algebraic equation (Or \"quit\" for exit from program): "; // Add description!
+ puts(str);
+ return put_in();
 }
 
 void output(char output_str[10000])
 {
-	puts(output_str);
+ puts(output_str);
 }
 
 void bye()
 {
-	char str[] = "Bye!\nCome back Soon ;)"; // Add description!
-	puts(str);
+ char str[] = "Bye!\nCome back Soon ;)"; // Add description!
+ puts(str);
 }
 
 
