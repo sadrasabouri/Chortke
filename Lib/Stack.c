@@ -19,6 +19,7 @@ int get_i_n();
 
 char pop_c();
 void push_c(char x);// x : the number wanted to be pushed.
+char show_last_c();
 int get_i_c();
 
 int get_i_n(){
@@ -40,6 +41,12 @@ void push_n(float x){
 char pop_c(){
   if (I_c >= 0) // Stack isn't empty!
     return char_stack[I_c--];//pop the late added number to num_stack and move pointer one block back.
+  else
+   printf("Stack is Empty:)\n");
+}
+char show_last_c(){
+  if (I_c >= 0) // Stack isn't empty!
+    return char_stack[I_c];//get back the last.
   else
    printf("Stack is Empty:)\n");
 }

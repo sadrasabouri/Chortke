@@ -20,6 +20,7 @@ int put_in()
  while(1)
  {
   c = getchar();
+  /* --- Process of casting number to its stack --- */  
   if(( '0' <= c && c <= '9' )|| c == '.')//if character is number of dots.
    tmp[i++] = c;
   else
@@ -30,6 +31,8 @@ int put_in()
     push_n(atof(tmp));
    }
    i = 0;
+   /* --- End of Process --- */
+
    if(c == '+' || c == '-' || c == '/' || c == '*' || c == ')' || c == '(') // operator poping
     {
 	push_c(c);

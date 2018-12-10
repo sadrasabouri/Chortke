@@ -10,9 +10,7 @@ int main()
  greeting();
  do
  {
-  push_c('(');
   is_continue = input();
-  push_c(')');
   if(is_continue)
   {
 	Calculate();

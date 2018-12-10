@@ -3,5 +3,6 @@
 
 int put_in();
 void Calculate();
+int get_value(char c);
 
 #endif
