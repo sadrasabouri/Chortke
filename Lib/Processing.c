@@ -10,6 +10,9 @@ Our library for string processing :
 int put_in();
 void Calculate();
 
+char c;
+float a, b;//Two number we want to calculate them in each section.
+
 int put_in()
 {
  char c, tmp[50], statement[10000];
@@ -56,6 +59,42 @@ int put_in()
  *( input_str + i ) = 0;
  */
 }
+
 void Calculate(){
+ c = pop_c();
+ switch (c) // Switch on poped character.
+ {
+  case ')':
+   Calculate();  
+  break;
+  case '(':
+   return;
+  break;  
+  case '+':
+   a = pop_n();
+   b = pop_n();
+   Calculate();
+   push_n(a + b);  
+  break;
+  case '-':
+   a = pop_n();
+   b = pop_n();
+   Calculate();
+   push_n(b - a);  
+  break;  
+  case '*':
+   a = pop_n();
+   b = pop_n();
+   push_n(a * b);
+   Calculate();  
+  break;
+  case '/':
+   a = pop_n();
+   b = pop_n();
+   push_n(b / a);
+   Calculate();  
+  break;
+ }
 }
+
 

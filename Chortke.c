@@ -12,6 +12,7 @@ int main()
  {
   is_continue = input();
   Calculate();
+  printf("Result is : %f\n", pop_n());
  }
  while (is_continue);
  bye();
