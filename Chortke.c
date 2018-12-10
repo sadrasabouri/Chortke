@@ -10,9 +10,14 @@ int main()
  greeting();
  do
  {
+  push_c('(');
   is_continue = input();
-  Calculate();
-  printf("Result is : %f\n", pop_n());
+  push_c(')');
+  if(is_continue)
+  {
+	Calculate();
+  	printf("Result is : %f\n", pop_n());
+  }
  }
  while (is_continue);
  bye();

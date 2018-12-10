@@ -30,8 +30,10 @@ int put_in()
     push_n(atof(tmp));
    }
    i = 0;
-   if(c == '+' || c == '-' || c == '/' || c == '*' || c == ')' || c == '(')
-    push_c(c);
+   if(c == '+' || c == '-' || c == '/' || c == '*' || c == ')' || c == '(') // operator poping
+    {
+	push_c(c);
+    }
    if(c == '\n')
     break;
   }
@@ -39,25 +41,6 @@ int put_in()
  }
  statement[k] = 0;
  return strcmp(statement, "quit");
- /*
- --- This code erase spaces ---
- char tmp[10000];
- gets(tmp);
- int i, n = strlen(tmp), j = 0;
-
- for (i = 0; i < n; ++i)
-  if(tmp[i] != ' ')
-   *( input_str + j++ ) = tmp[i];
- *( input_str + j ) = 0;
- */
- 
- 
- /* 
- --- This code doesn't erase spaces ---
- for (i = 0; i < n; ++i)
-  *( input_str + i ) = tmp[i];
- *( input_str + i ) = 0;
- */
 }
 
 void Calculate(){
