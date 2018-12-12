@@ -10,10 +10,11 @@ int main()
  greeting();
  do
  {
+  push_c('(');
   is_continue = input();
+  push_c(')');
   if(is_continue)
   {
-	reverse();
 	Calculate();
   	printf("Result is : %f\n", pop_n());
   }

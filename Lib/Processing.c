@@ -11,7 +11,6 @@ int put_in();
 void Calculate();
 
 char c;
-float a, b;//Two number we want to calculate them in each section.
 
 int put_in()
 {
@@ -28,15 +27,23 @@ int put_in()
    if(i != 0)
    {
     tmp[i] = 0;
-    push_n(atof(tmp));
+    push_n(strtod(tmp, NULL));
    }
    i = 0;
    /* --- End of Process --- */
 
-   if(c == '+' || c == '-' || c == '/' || c == '*' || c == ')' || c == '(') // operator poping
-    {
-	push_c(c);
-    }
+   switch (c)
+   {
+	case '-':
+		push_n(0);//It should push a ( and ) before pushing 0 then.
+	case '+':
+	case '*':
+	case '/':
+	case '(':
+	case ')':
+		push_c(c);
+	break;
+   }//ignoring spaces!
    if(c == '\n')
     break;
   }
@@ -47,6 +54,8 @@ int put_in()
 }
 
 void Calculate(){
+float a, b;//Two number we want to calculate them in each section.
+ 
  c = pop_c();
  switch (c) // Switch on poped character.
  {
@@ -66,7 +75,7 @@ void Calculate(){
    a = pop_n();
    Calculate();
    b = pop_n();
-   push_n(a - b);  
+   push_n(b - a);  
   break;  
   case '*':
    a = pop_n();
@@ -77,7 +86,13 @@ void Calculate(){
   case '/':
    a = pop_n();
    b = pop_n();
-   push_n(a / b);
+   if (a != 0)
+   	push_n(b / a);
+   else
+	{
+	puts("Divided by 0! :D\n");
+	return;	
+	}
    Calculate();  
   break;
  }
