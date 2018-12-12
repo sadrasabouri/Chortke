@@ -2,7 +2,9 @@
 #define PROCESSING_H_
 
 int put_in();
-void Calculate();
+int Calculate();
 int get_value(char c);
+void reset();
 
 #endif
+

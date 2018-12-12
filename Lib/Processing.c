@@ -1,5 +1,5 @@
 /*
-Our library for string processing :
+Processes all done in this code!
 */
 #include <string.h>
 #include <stdio.h>
@@ -8,13 +8,19 @@ Our library for string processing :
 #include "Processing.h"
 
 int put_in();
-void Calculate();
+int Calculate();
+void reset();
 
 char c;
+int is_calculated;
 
-int put_in()
-{
- char c, tmp[50], statement[10000], last_operator;
+
+void reset(){
+	is_calculated = 1;
+}
+
+int put_in(){
+ char c, tmp[50], statement[10000];
  int is_on_num = 0, i = 0, k = 0;
  while(1)
  {
@@ -35,7 +41,14 @@ int put_in()
    switch (c)
    {
 	case '-':
-		push_n(0);//It should push a ( and ) before pushing 0 then.
+	//It should push a ( and ) before pushing 0 then.
+	if(get_i_n() != -1){ // Number stack isn't empty
+		push_c('+');
+		push_n(0);
+	}	
+	else
+		
+		push_n(0);
 	case '+':
 	case '*':
 	case '/':
@@ -53,7 +66,7 @@ int put_in()
  return strcmp(statement, "quit");
 }
 
-void Calculate(){
+int Calculate(){
 float a, b;//Two number we want to calculate them in each section.
  
  c = pop_c();
@@ -63,7 +76,7 @@ float a, b;//Two number we want to calculate them in each section.
    Calculate();  
   break;
   case '(':
-   return;
+   return 1;
   break;  
   case '+':
    a = pop_n();
@@ -90,12 +103,12 @@ float a, b;//Two number we want to calculate them in each section.
    	push_n(b / a);
    else
 	{
-	puts("Divided by 0! :D\n");
-	return;	
+	puts("Divided by 0! :D");
+	is_calculated = 0;
 	}
    Calculate();  
   break;
  }
+ return is_calculated;
 }
-
 

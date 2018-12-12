@@ -1,6 +1,5 @@
 /*
 Stack code
-Last update by Hanieh Tajer && Amirali Ekhteraee && Sadra Sabouri  @ 7:10 PM | 3 December 2018.
 */
 #include <stdio.h>
 #include <string.h>
@@ -33,8 +32,6 @@ int get_i_c(){
 float pop_n(){
   if (I_n >= 0) // Stack isn't empty!
     return num_stack[I_n--];//pop the late added number to num_stack and move pointer one block back.
-  else
-   printf("Stack is Empty:)\n");
 }
 void push_n(float x){
   num_stack[++I_n] = x;//set the (i+1)th block to x and then move pointer one block forward.
@@ -43,8 +40,6 @@ void push_n(float x){
 char pop_c(){
   if (I_c >= 0) // Stack isn't empty!
     return char_stack[I_c--];//pop the late added number to num_stack and move pointer one block back.
-  else
-   printf("Stack is Empty:)\n");
 }
 char show_last_c(){
   if (I_c >= 0) // Stack isn't empty!
@@ -108,3 +103,4 @@ int main(){
   return 0;
 }
 */
+
