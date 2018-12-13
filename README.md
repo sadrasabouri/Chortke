@@ -7,9 +7,9 @@ In order to compile "Chortke" you can simply run this command in your terminal :
 ```
 gcc -o Chortke Chortke.c "./Lib/UI.c" "./Lib/Processing.c" "./Lib/Stack.c"
 ```
-## Authors
+## Developers
 
-* **Sadra Sabouri** [sadrasabouri](https://github.com/sadrasabouri)
-* **Haniyeh tajer** [haniyehtajer](https://github.com/haniyehtajer)
-* **Amirali Ekhteraee** [AmiraliEkhteraee](https://github.com/AmiraliEkhteraee)
+* **Sadra Sabouri** [Sadra Sabouri](https://github.com/sadrasabouri)
+* **Haniyeh Tajer** [Haniyeh Tajer](https://github.com/haniyehtajer)
+* **Amirali Ekhteraee** [Amirali Ekhteraee](https://github.com/AmiraliEkhteraee)
 
