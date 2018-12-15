@@ -9,7 +9,7 @@ Main source code of "Chortke"
 
 int main()
 {
- int is_continue;
+ int is_continue, is_true = 0;
  greeting();
  do
  {
@@ -19,7 +19,9 @@ int main()
   push_c(')');
   if(is_continue)
   {
-	if(Calculate())
+	while(get_i_n()!=0)
+		is_true = Calculate();
+	if(is_true)
   		printf("Result is : %f\n", pop_n());
   }
  }
