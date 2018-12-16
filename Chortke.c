@@ -14,6 +14,7 @@ void anti_space(char *spaced_one,char *none_spaced_one);
 int check(char *str);
 int is_ok(int x);
 int is_operator(char c);
+int is_num(char c);
 
 int main()
 {
@@ -34,7 +35,9 @@ int main()
 				tmp[i] = 0;
 				strcpy(tokens[n++], tmp);
 			}
-				i = 0;
+			tokens[n][0]= c;
+			tokens[n++][1] = 0; // To make it string.
+			i = 0;
 			}
 		k++;
 		}	
@@ -42,7 +45,8 @@ int main()
 			tmp[i] = 0;
 			strcpy(tokens[n++], tmp);
 		}
-		printf("%s %s", tokens[0], tokens[1]);
+		for(int i = 0; i < n; i++)
+			printf("%s\n", tokens[i]);
 	}
 	return 0;
 }
@@ -64,10 +68,16 @@ int check(char *str){
 	if(is_operator(c))
 		return 3;
 	while(c != 0){
-		if(c == '(')
+		if(c == '('){
+			if (i != 0 && is_num(*(str + i - 1)))
+				return 4;
 			paran++;
-		else if(c == ')')
+		}
+		else if(c == ')'){
+			if (*(str + i + 1) != 0 && is_num(*(str + i + 1)))
+				return 4;
 			paran--;
+		}
 		if(is_operator(c) && is_operator(*(str + i + 1)))
 			return 2;
 		c = *(str + ++i);
@@ -95,11 +105,21 @@ int is_ok(int x){
 			printf("Starts or ends with operator!");
 			return 0;
 		break;
+		case 4:
+			printf("multiply operator (*) missed!");
+			return 0;
+		break;
 	}
 }
 int is_operator(char c){
-	if(c == '+' ||c == '-' ||c == '*' ||c == '/' ||c == '^' ||c == '(' ||c == ')')
+	if(c == '+' ||c == '-' ||c == '*' ||c == '/' ||c == '^')
 		return 1;
 	return 0;
 }
+int is_num(char c){
+	if(c >= '0' && c <= '9')
+		return 1;
+	return 0;
+}
+
 
