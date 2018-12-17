@@ -91,13 +91,14 @@ float a, b;//Two number we want to calculate them in each section.
    push_n(b - a);  
   break;  
   case '*':
-   a = pop_n();
-   b = pop_n();
-   push_n(a * b);
-   Calculate();  
+	a = pop_n();
+	Calculate();
+	b = pop_n();
+	push_n(a * b);
   break;
   case '/':
    a = pop_n();
+   Calculate();
    b = pop_n();
    if (a != 0)
    	push_n(b / a);
@@ -106,7 +107,6 @@ float a, b;//Two number we want to calculate them in each section.
 	puts("Divided by 0! :D");
 	is_calculated = 0;
 	}
-   Calculate();  
   break;
  }
  return is_calculated;

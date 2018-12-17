@@ -19,7 +19,7 @@ int main()
   push_c(')');
   if(is_continue)
   {
-	while(get_i_n()!=0)
+	while(get_i_c()!= -1)
 		is_true = Calculate();
 	if(is_true)
   		printf("Result is : %f\n", pop_n());
