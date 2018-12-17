@@ -28,16 +28,31 @@ int main()
 		char c;
 		int i = 0, k = 0, n = 0;
 		while( (c = main_stream[k]) != 0){
-			if(( '0' <= c && c <= '9' )|| c == '.')//if character is number of dots.
+			if(is_num(c) || c == '.')//if character is number of dots.
 				tmp[i++] = c;
 			else{
-			if(i != 0){
-				tmp[i] = 0;
-				strcpy(tokens[n++], tmp);
-			}
-			tokens[n][0]= c;
-			tokens[n++][1] = 0; // To make it string.
-			i = 0;
+				if(c == '-'){
+					if(k == 0 || main_stream[k - 1] == '(') // negetive numbers.
+							tmp[i++] = c;	
+					else{
+						if(i != 0){
+						tmp[i] = 0;
+						strcpy(tokens[n++], tmp);								
+						tokens[n][0]= c;
+						tokens[n++][1] = 0; // To make it string.
+						i = 0;
+						}
+					}
+				}
+				else{
+						if(i != 0){
+							tmp[i] = 0;
+							strcpy(tokens[n++], tmp);
+						}
+					tokens[n][0]= c;
+					tokens[n++][1] = 0; // To make it string.
+					i = 0;
+				}
 			}
 		k++;
 		}	
@@ -65,8 +80,6 @@ void anti_space(char *spaced_one,char *none_spaced_one){
 int check(char *str){
 	int i = 0, paran = 0, op_collision = 0;
 	char c = *str;
-	if(is_operator(c))
-		return 3;
 	while(c != 0){
 		if(c == '('){
 			if (i != 0 && is_num(*(str + i - 1)))
@@ -102,7 +115,7 @@ int is_ok(int x){
 			return 0;
 		break;
 		case 3:
-			printf("Starts or ends with operator!");
+			printf("Ends with operator!");
 			return 0;
 		break;
 		case 4:
@@ -112,7 +125,7 @@ int is_ok(int x){
 	}
 }
 int is_operator(char c){
-	if(c == '+' ||c == '-' ||c == '*' ||c == '/' ||c == '^')
+	if(c == '+' ||c == '-' ||c == '*' ||c == '/' ||c == '^'||c == '!')
 		return 1;
 	return 0;
 }
