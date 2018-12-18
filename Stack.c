@@ -26,6 +26,7 @@ void push_n(float x);// x : the number wanted to be pushed.
 int get_i_n();
 
 char pop_c();
+char get_top();
 void push_c(char x);// x : the character wanted to be pushed.
 char show_last_c();
 int get_i_c();
@@ -53,6 +54,10 @@ void push_n(float x){
 char pop_c(){
   if (chars.i >= 0) // Stack isn't empty!
     return chars.stack[chars.i--];//pop the late added number to numbers and move pointer one block back.
+}
+char get_top(){
+	  if (chars.i >= 0) // Stack isn't empty!
+			return chars.stack[chars.i];//pop the late added number to numbers.
 }
 void push_c(char x){
   chars.stack[++chars.i] = x;//set the (i+1)th block to x and then move pointer one block forward.

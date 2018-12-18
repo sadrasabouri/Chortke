@@ -3,6 +3,7 @@ Main source code of "Chortke"
 */
 #include <stdio.h>
 #include <string.h>
+#include <math.h>
 #include "Stack.h"
 
 #define MAX_CHAR_SIZE 100
@@ -13,10 +14,13 @@ int anti_space(char *spaced_one,char *none_spaced_one);
 int check(char *str);
 int is_ok(int x);
 int is_operator(char c);
-int is_num(char c);
+int is_digit(char c);
 char to_forward(char* str, int i);
 char to_downward(char* str, int i);
 void error(char* buffer);
+int calc();
+int is_num(char str[]);
+int get_precendence(char op);
 
 int main()
 {
@@ -30,7 +34,7 @@ int main()
 			char c;
 			int i = 0, k = 0, n = 0;
 			while( (c = main_stream[k]) != 0){
-				if(is_num(c) || c == '.')//if character is number of dots.
+				if(is_digit(c) || c == '.')//if character is number of dots.
 					num_tmp[i++] = c;
 				else{
 					switch(c){
@@ -108,13 +112,12 @@ int main()
 								strcpy(tokens[n++], "ln");
 								k = k + 1;
 							}
-							else if (!strncmp(main_stream + k, "log", 3))
-							{
-								strcpy(tokens[n++], "log");
-								k = k + 2;
-							}
 							else
 								error(buffer);
+						break;
+						case 'x'://Variable
+								tokens[n][0]= c;
+								tokens[n++][1] = 0; // To make it string.
 						break;
 						default :
 							if(!strcmp(main_stream, "quit"))
@@ -134,12 +137,45 @@ int main()
 			/* -- Token process has been completed -- */
 			
 			/* ---- For testing Token part ---
-
-			*/
-						for(int i = 0; i < n; i++)
+				for(int i = 0; i < n; i++)
 				printf("%s\n", tokens[i]);
-			
-			
+			*/
+			/* ---- For testing stack ---
+			push_n(3.1415);
+			push_c('s');
+			calc();
+			printf("%f", pop_n());
+			*/
+			int index = 0;
+			char next_token[MAX_NUBER_SIZE];
+			while(index < n)
+			{
+				strcpy(next_token, tokens[index]);
+				if(is_num(next_token))
+					push_n(atof(next_token));
+				else if(next_token[0] == 'x')// X = 0
+					push_n(0);
+				else if(next_token[0] == '(')
+					push_c('(');
+				else if(next_token[0] == ')'){
+					while (get_top() != '(')
+						if(!calc())
+							return 0;
+					pop_c();//Discarding Left parentheses
+				}
+				else{//It should be an operator
+					//Probably bugged.
+					while(get_i_c() != -1 && get_precendence(get_top()) >= get_precendence(next_token[0]))
+						if(!calc())
+							return 0;
+					push_c(next_token[0]);
+				}
+				index++;
+			}
+			while(get_i_c() != -1)
+				if(!calc())
+						return 0;
+			printf("Result is : %f \n", pop_n());
 		}
 	}
 	}while(1);
@@ -154,8 +190,8 @@ int anti_space(char *spaced_one,char *none_spaced_one){
 			j++;
 		}
 		else
-						if(is_num(to_forward(spaced_one, i)) && is_num(to_downward(spaced_one, i))){
-								//Just for 5 6 2 mode
+						if(is_digit(to_forward(spaced_one, i)) && is_digit(to_downward(spaced_one, i))){
+								//Just for 5 6 2  = 562 mode
 								puts("Mistaken numbers!");
 								return 0;
 						}
@@ -169,12 +205,12 @@ int check(char *str){
 	char c = *str;
 	while(c != 0){
 		if(c == '('){
-			if (i != 0 && is_num(*(str + i - 1)))
+			if (i != 0 && is_digit(*(str + i - 1)))
 				return 4;
 			paran++;
 		}
 		else if(c == ')'){
-			if (*(str + i + 1) != 0 && is_num(*(str + i + 1)))
+			if (*(str + i + 1) != 0 && is_digit(*(str + i + 1)))
 				return 4;
 			paran--;
 		}
@@ -216,7 +252,7 @@ if(c == '+' ||c == '-' ||c == '*' ||c == '/' ||c == '^'||c == '!')
 		return 1;
 	return 0;
 }
-int is_num(char c){
+int is_digit(char c){
 	if(c >= '0' && c <= '9')
 		return 1;
 	return 0;
@@ -245,4 +281,88 @@ void error(char* buffer){
 	while(*(buffer + i) != '\n')
 		putchar(*(buffer + i++));
 	printf(" khodeti :D.");
+}
+int calc(){
+	char operator = pop_c();
+	float op1, op2;
+	switch(operator){
+		case '+':
+			op1 = pop_n();
+			op2 = pop_n();
+			push_n(op1 + op2);
+		break;
+		case '-':
+			op1 = pop_n();
+			op2 = pop_n();
+			push_n(op2 - op1);
+		break;
+		case '*':
+			op1 = pop_n();
+			op2 = pop_n();
+			push_n(op1 * op2);
+		break;
+		case '/':
+			op1 = pop_n();
+			op2 = pop_n();
+			if(op1 == 0)
+			{
+				puts("Divided by 0! :D");
+				return 0;
+			}
+			push_n(op2 / op1);
+		break;
+		case '^':
+			op1 = pop_n();
+			op2 = pop_n();
+			push_n(pow(op2, op1));
+		break;
+		case 's': // Sin ()
+			op1 = pop_n();
+			push_n(sin(op1));
+		break;
+		case 'c': // Cos ()
+			op1 = pop_n();
+			push_n(cos(op1));
+		break;
+		case 't': // Tan ()
+			op1 = pop_n();
+			push_n(tan(op1));
+		break;
+		case 'e': // exp ()
+			op1 = pop_n();
+			push_n(exp(op1));
+		break;
+		case 'l':// ln()
+			op1 = pop_n();
+			push_n(log(op1));
+		break;
+		return 1;
+	}
+}
+int is_num(char str[]){
+	if(is_digit(str[0]))
+		return 1;
+	else if(str[0] == '-' && is_digit(str[1]))
+		return 1;
+	else
+		return 0;
+}
+int get_precendence(char op){
+	switch(op)
+	{
+		case '-':
+		case '+':
+			return 0;
+		break;
+		case '*':
+		case '/':
+			return 1;
+		break;
+		case '^':
+			return 2;
+		break;
+		default ://sin cos tan exp ln
+			return -1;
+		break;
+	}
 }
