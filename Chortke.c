@@ -24,41 +24,49 @@ int main()
 	anti_space(buffer, main_stream);
 	
 	if( is_ok(check(main_stream)) ){
-		char tokens[MAX_TOKEN][MAX_NUBER_SIZE], tmp[MAX_TOKEN];
+		char tokens[MAX_TOKEN][MAX_NUBER_SIZE], num_tmp[MAX_TOKEN];
 		char c;
 		int i = 0, k = 0, n = 0;
 		while( (c = main_stream[k]) != 0){
 			if(is_num(c) || c == '.')//if character is number of dots.
-				tmp[i++] = c;
+				num_tmp[i++] = c;
 			else{
-				if(c == '-'){
-					if(k == 0 || main_stream[k - 1] == '(') // negetive numbers.
-							tmp[i++] = c;	
-					else{
+				switch(c){
+					case '-':
+						if(k == 0 || main_stream[k - 1] == '(') // negetive numbers.
+								num_tmp[i++] = c;	
+						else{
+							if(i != 0){
+							num_tmp[i] = 0;
+							strcpy(tokens[n++], num_tmp);								
+							tokens[n][0]= c;
+							tokens[n++][1] = 0; // To make it string.
+							i = 0;
+							}
+						}
+					break;
+					//All operators:
+					case '+':
+					case '*':
+					case '/':
+					case '^':
+					case '!':			
 						if(i != 0){
-						tmp[i] = 0;
-						strcpy(tokens[n++], tmp);								
+							num_tmp[i] = 0;
+							strcpy(tokens[n++], num_tmp);
+						}
 						tokens[n][0]= c;
 						tokens[n++][1] = 0; // To make it string.
 						i = 0;
-						}
-					}
-				}
-				else{
-						if(i != 0){
-							tmp[i] = 0;
-							strcpy(tokens[n++], tmp);
-						}
-					tokens[n][0]= c;
-					tokens[n++][1] = 0; // To make it string.
-					i = 0;
+					break;
+					
 				}
 			}
 		k++;
 		}	
 		if(i != 0){
-			tmp[i] = 0;
-			strcpy(tokens[n++], tmp);
+			num_tmp[i] = 0;
+			strcpy(tokens[n++], num_tmp);
 		}
 		for(int i = 0; i < n; i++)
 			printf("%s\n", tokens[i]);
