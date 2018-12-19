@@ -2,6 +2,7 @@
 Main source code of "Chortke"
 */
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <math.h>
 #include "Stack.h"
@@ -27,6 +28,7 @@ int main()
 	char buffer[MAX_CHAR_SIZE], main_stream[MAX_CHAR_SIZE];
 	do{
 	printf(" = ");
+	initial();
 	fgets(buffer, MAX_CHAR_SIZE, stdin);
 	if(anti_space(buffer, main_stream)){
 		if( is_ok(check(main_stream)) ){
@@ -140,9 +142,10 @@ int main()
 				for(int i = 0; i < n; i++)
 				printf("%s\n", tokens[i]);
 			*/
-			/* ---- For testing stack ---
+			/* ---- For testing stack ---- 
 			push_n(3.1415);
-			push_c('s');
+			push_c('+');
+			push_n(1.2);
 			calc();
 			printf("%f", pop_n());
 			*/
@@ -164,7 +167,6 @@ int main()
 					pop_c();//Discarding Left parentheses
 				}
 				else{//It should be an operator
-					//Probably bugged.
 					while(get_i_c() != -1 && get_precendence(get_top()) >= get_precendence(next_token[0]))
 						if(!calc())
 							return 0;
@@ -173,8 +175,11 @@ int main()
 				index++;
 			}
 			while(get_i_c() != -1)
-				if(!calc())
-						return 0;
+			{
+				if(!calc()){
+				    return 0;
+				}
+			}
 			printf("Result is : %f \n", pop_n());
 		}
 	}
@@ -316,6 +321,7 @@ int calc(){
 			op2 = pop_n();
 			push_n(pow(op2, op1));
 		break;
+
 		case 's': // Sin ()
 			op1 = pop_n();
 			push_n(sin(op1));

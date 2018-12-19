@@ -15,12 +15,7 @@ struct operator_stacks {
 	int i;
 	char stack[SIZE];
 } chars;//Stack for characters.
-
-void initial(){
-	numbers.i = -1;
-	chars.i = -1;
-}
-
+void initial();
 float pop_n();
 void push_n(float x);// x : the number wanted to be pushed.
 int get_i_n();
@@ -69,6 +64,11 @@ char show_last_c(){
   else
 	  return -1;
 }
+void initial(){
+	numbers.i = -1;
+	chars.i = -1;
+}
+
 /*
 --- For testing stack.h ---
 int main(){
