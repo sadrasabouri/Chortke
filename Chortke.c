@@ -136,7 +136,6 @@ int main()
 							if(!strcmp(main_stream, "quit"))
 								return 0;
 							error(buffer);
-							return 0;
 						break;
 						
 					}
@@ -181,7 +180,7 @@ int main()
 					while(get_i_c() != -1 && get_precendence(get_top()) >= get_precendence(next_token[0]))
 						if(!calc())
 							return 0;
-					push_c(next_token[0]);
+					push_c(next_token[0]);//s for sin, c for cos
 				}
 				index++;
 			}
@@ -305,6 +304,7 @@ void error(char* buffer){
 	while(*(buffer + i) != '\n')
 		putchar(*(buffer + i++));
 	printf(" khodeti :D.");
+	exit(0);
 }
 int calc(){
 	char operator = pop_c();
@@ -359,6 +359,11 @@ int calc(){
 		break;
 		case 'l':// ln()
 			op1 = pop_n();
+			if(op1 <= 0)
+			{
+				puts("Out of Ln's domain.");
+				return 0;
+			}
 			push_n(log(op1));
 		break;
 		case 'a':// abs ()
@@ -367,6 +372,9 @@ int calc(){
 				push_n(op1);
 			else
 				push_n(-op1);
+		break;
+		case ')':
+				calc();
 		break;
 		return 1;
 	}
@@ -392,6 +400,9 @@ int get_precendence(char op){
 		break;
 		case '^':
 			return 2;
+		break;
+		case '(':
+			return -2;
 		break;
 		default ://sin cos tan exp ln abs
 			return -1;
