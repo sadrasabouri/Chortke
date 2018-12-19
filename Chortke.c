@@ -359,6 +359,11 @@ int calc(){
 		break;
 		case 'l':// ln()
 			op1 = pop_n();
+			if(op1 <= 0)
+			{
+				puts("Out of Ln's domain.");
+				return 0;
+			}
 			push_n(log(op1));
 		break;
 		case 'a':// abs ()
