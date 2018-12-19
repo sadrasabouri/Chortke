@@ -117,6 +117,17 @@ int main()
 							else
 								error(buffer);
 						break;
+						
+						case 'a':
+							if(!strncmp(main_stream + k, "abs", 3))
+							{
+								strcpy(tokens[n++], "abs");
+								k = k + 2;
+							}
+							else
+								error(buffer);
+						break;
+						
 						case 'x'://Variable
 								tokens[n][0]= c;
 								tokens[n++][1] = 0; // To make it string.
@@ -350,6 +361,13 @@ int calc(){
 			op1 = pop_n();
 			push_n(log(op1));
 		break;
+		case 'a':// abs ()
+			op1 = pop_n();
+			if (op1 >= 0)
+				push_n(op1);
+			else
+				push_n(-op1);
+		break;
 		return 1;
 	}
 }
@@ -375,7 +393,7 @@ int get_precendence(char op){
 		case '^':
 			return 2;
 		break;
-		default ://sin cos tan exp ln
+		default ://sin cos tan exp ln abs
 			return -1;
 		break;
 	}
