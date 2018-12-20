@@ -8,8 +8,8 @@ Main source code of "Chortke"
 #include "Stack.h"
 
 #define MAX_CHAR_SIZE 100
-#define MAX_TOKEN 20
-#define MAX_NUBER_SIZE 10
+#define MAX_TOKEN 50
+#define MAX_NUBER_SIZE 50
 
 int anti_space(char *spaced_one,char *none_spaced_one);
 int check(char *str);
@@ -22,7 +22,7 @@ void error(char* buffer);
 int calc();
 int is_num(char str[]);
 int get_precendence(char op);
-int factorial(float num);
+int factorial(int num);
 
 int main()
 {
@@ -376,7 +376,13 @@ int calc(){
 		break;
 		case '!': //factorial ()
 			op1 = pop_n();
-			push_n(factorial(op1));
+			op2 = (int)op1;
+			if(op1 == op2)
+			push_n(factorial(op2));
+		else {
+			puts("Can't calculate the factorial of a decimal number.");
+			return 0;
+		}
 		break;
 		return 1;
 	}
@@ -412,8 +418,7 @@ int get_precendence(char op){
 		break;
 	}
 }
-int factorial(float num) {
-	num = (int)num;
+int factorial(int num) {
 	int result = 1;
 	for(int i = num; i >= 1; i--) {
 		result *= i;
