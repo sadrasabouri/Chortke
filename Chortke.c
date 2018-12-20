@@ -8,7 +8,7 @@ Main source code of "Chortke"
 #include "Stack.h"
 
 #define MAX_CHAR_SIZE 100
-#define MAX_TOKEN 20
+#define MAX_TOKEN 50
 #define MAX_NUBER_SIZE 10
 
 int anti_space(char *spaced_one,char *none_spaced_one);
@@ -27,11 +27,11 @@ int main()
 {
 	char buffer[MAX_CHAR_SIZE], main_stream[MAX_CHAR_SIZE];
 	do{
-	printf(" = ");
+	printf("= ");
 	initial();
 	fgets(buffer, MAX_CHAR_SIZE, stdin);
 	if(anti_space(buffer, main_stream)){
-		if( is_ok(check(main_stream)) ){
+		if(is_ok(check(main_stream)) ){
 			char tokens[MAX_TOKEN][MAX_NUBER_SIZE], num_tmp[MAX_TOKEN];
 			char c;
 			int i = 0, k = 0, n = 0;
@@ -204,8 +204,7 @@ int anti_space(char *spaced_one,char *none_spaced_one){
 			*(none_spaced_one + j) = *(spaced_one + i);
 			j++;
 		}
-		else
-						if(is_digit(to_forward(spaced_one, i)) && is_digit(to_downward(spaced_one, i))){
+		else if(is_digit(to_forward(spaced_one, i)) && is_digit(to_downward(spaced_one, i))){
 								//Just for 5 6 2  = 562 mode
 								puts("Mistaken numbers!");
 								return 0;
@@ -218,6 +217,8 @@ int anti_space(char *spaced_one,char *none_spaced_one){
 int check(char *str){
 	int i = 0, paran = 0, op_collision = 0;
 	char c = *str;
+	if(c == 0)
+		return 6;
 	if(is_operator(c) && c != '-')
 			return 5;
 	while(c != 0){
@@ -266,6 +267,9 @@ int is_ok(int x){
 		break;
 		case 5:
 			puts("Starts with operator!");
+			return 0;
+		break;
+		case 6:
 			return 0;
 		break;
 	}
