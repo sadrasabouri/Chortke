@@ -22,6 +22,7 @@ void error(char* buffer);
 int calc();
 int is_num(char str[]);
 int get_precendence(char op);
+int factorial(float num);
 
 int main()
 {
@@ -136,7 +137,6 @@ int main()
 							if(!strcmp(main_stream, "quit"))
 								return 0;
 							error(buffer);
-							return 0;
 						break;
 						
 					}
@@ -181,7 +181,7 @@ int main()
 					while(get_i_c() != -1 && get_precendence(get_top()) >= get_precendence(next_token[0]))
 						if(!calc())
 							return 0;
-					push_c(next_token[0]);
+					push_c(next_token[0]);//s for sin, c for cos
 				}
 				index++;
 			}
@@ -234,11 +234,11 @@ int check(char *str){
 				return 4;
 			paran--;
 		}
-		if(is_operator(c) && is_operator(*(str + i + 1)) )
+		if(is_operator(c) && is_operator(*(str + i + 1)) && c != '!')
 			return 2;
 		c = *(str + ++i);
 	}
-	if(is_operator(*(str + i - 1)))
+	if(is_operator(*(str + i - 1)) && *(str + i - 1) != '!')
 		return 3;
 	if(paran != 0)
 		return 1;
@@ -305,6 +305,7 @@ void error(char* buffer){
 	while(*(buffer + i) != '\n')
 		putchar(*(buffer + i++));
 	printf(" khodeti :D.");
+	exit(0);
 }
 int calc(){
 	char operator = pop_c();
@@ -359,6 +360,11 @@ int calc(){
 		break;
 		case 'l':// ln()
 			op1 = pop_n();
+			if(op1 <= 0)
+			{
+				puts("Out of Ln's domain.");
+				return 0;
+			}
 			push_n(log(op1));
 		break;
 		case 'a':// abs ()
@@ -367,6 +373,10 @@ int calc(){
 				push_n(op1);
 			else
 				push_n(-op1);
+		break;
+		case '!': //factorial ()
+			op1 = pop_n();
+			push_n(factorial(op1));
 		break;
 		return 1;
 	}
@@ -391,10 +401,22 @@ int get_precendence(char op){
 			return 1;
 		break;
 		case '^':
+		case '!':
 			return 2;
+		break;
+		case '(':
+			return -2;
 		break;
 		default ://sin cos tan exp ln abs
 			return -1;
 		break;
 	}
+}
+int factorial(float num) {
+	num = (int)num;
+	int result = 1;
+	for(int i = num; i >= 1; i--) {
+		result *= i;
+	}
+		return result;
 }
