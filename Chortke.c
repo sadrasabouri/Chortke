@@ -8,13 +8,9 @@ Main source code of "Chortke"
 #include "Stack.h"
 
 #define MAX_CHAR_SIZE 100
-<<<<<<< HEAD
 #define MAX_TOKEN 50
 #define MAX_NUBER_SIZE 50
-=======
-#define MAX_TOKEN 20
-#define MAX_NUBER_SIZE 10
->>>>>>> Rastgarans
+
 
 int anti_space(char *spaced_one,char *none_spaced_one);
 int check(char *str);
@@ -27,10 +23,8 @@ void error(char* buffer);
 int calc();
 int is_num(char str[]);
 int get_precendence(char op);
-<<<<<<< HEAD
 int factorial(int num);
-=======
->>>>>>> Rastgarans
+
 
 int main()
 {
@@ -242,19 +236,11 @@ int check(char *str){
 				return 4;
 			paran--;
 		}
-<<<<<<< HEAD
 		if(is_operator(c) && is_operator(*(str + i + 1)) && c != '!')
 			return 2;
 		c = *(str + ++i);
 	}
 	if(is_operator(*(str + i - 1)) && *(str + i - 1) != '!')
-=======
-		if(is_operator(c) && is_operator(*(str + i + 1)) )
-			return 2;
-		c = *(str + ++i);
-	}
-	if(is_operator(*(str + i - 1)))
->>>>>>> Rastgarans
 		return 3;
 	if(paran != 0)
 		return 1;
@@ -390,7 +376,6 @@ int calc(){
 			else
 				push_n(-op1);
 		break;
-<<<<<<< HEAD
 		case '!': //factorial ()
 			op1 = pop_n();
 			op2 = (int)op1;
@@ -400,10 +385,6 @@ int calc(){
 			puts("Can't calculate the factorial of a decimal number.");
 			return 0;
 		}
-=======
-		case ')':
-				calc();
->>>>>>> Rastgarans
 		break;
 		return 1;
 	}
@@ -428,10 +409,7 @@ int get_precendence(char op){
 			return 1;
 		break;
 		case '^':
-<<<<<<< HEAD
 		case '!':
-=======
->>>>>>> Rastgarans
 			return 2;
 		break;
 		case '(':
@@ -442,7 +420,6 @@ int get_precendence(char op){
 		break;
 	}
 }
-<<<<<<< HEAD
 int factorial(int num) {
 	int result = 1;
 	for(int i = num; i >= 1; i--) {
@@ -450,5 +427,3 @@ int factorial(int num) {
 	}
 		return result;
 }
-=======
->>>>>>> Rastgarans
