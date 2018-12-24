@@ -7,9 +7,11 @@ Main source code of "Chortke"
 #include <math.h>
 #include "Stack.h"
 
-#define MAX_CHAR_SIZE 100
-#define MAX_TOKEN 50
-#define MAX_NUBER_SIZE 50
+#define MAX_CHAR_SIZE 10000
+#define MAX_TOKEN 10000
+#define MAX_NUBER_SIZE 20
+#define pi_official_num "3.1415926536"
+#define e_official_num "2.7182818285"
 
 int anti_space(char *spaced_one,char *none_spaced_one);
 int check(char *str);
@@ -71,6 +73,16 @@ int main()
        tokens[n++][1] = 0; // To make it string.
        i = 0;
       break;
+	  case 'p':
+       if(!strncmp(main_stream + k, "pi", 2))
+       {
+        strcpy(tokens[n++], pi_official_num);
+        k = k + 1;
+       }
+       else
+        error(buffer);
+      break;
+      
       case 's':
        if(!strncmp(main_stream + k, "sin", 3))
        {
@@ -106,8 +118,9 @@ int main()
         strcpy(tokens[n++], "exp");
         k = k + 2;
        }
-       else
-        error(buffer);
+       else if (!strncmp(main_stream + k, "e", 1))
+			strcpy(tokens[n++], e_official_num);
+       else error(buffer);
       break;
       
       case 'l':
