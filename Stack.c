@@ -7,13 +7,13 @@ Stack code
 #define SIZE 50
 
 struct oprand_stacks {
-	int i;
-	float stack[SIZE];
+ int i;
+ float stack[SIZE];
 } numbers;//Stack for float numbers.
 
 struct operator_stacks {
-	int i;
-	char stack[SIZE];
+ int i;
+ char stack[SIZE];
 } chars;//Stack for characters.
 void initial();
 float pop_n();
@@ -51,8 +51,8 @@ char pop_c(){
     return chars.stack[chars.i--];//pop the late added number to numbers and move pointer one block back.
 }
 char get_top(){
-	  if (chars.i >= 0) // Stack isn't empty!
-			return chars.stack[chars.i];//pop the late added number to numbers.
+   if (chars.i >= 0) // Stack isn't empty!
+   return chars.stack[chars.i];//pop the late added number to numbers.
 }
 void push_c(char x){
   chars.stack[++chars.i] = x;//set the (i+1)th block to x and then move pointer one block forward.
@@ -62,11 +62,11 @@ char show_last_c(){
   if (chars.i >= 0) // Stack isn't empty!
     return chars.stack[chars.i];//get back the last one.
   else
-	  return -1;
+   return -1;
 }
 void initial(){
-	numbers.i = -1;
-	chars.i = -1;
+ numbers.i = -1;
+ chars.i = -1;
 }
 
 /*
