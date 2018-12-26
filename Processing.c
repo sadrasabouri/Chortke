@@ -30,7 +30,12 @@ int check_function(char *checking_pointer, const char * funtion_to_be_checked, c
 float calculate_equation(char* buffer, float x, int *is_con){
  char main_stream[MAX_CHAR_SIZE];
  initial();
- if(anti_space(buffer, main_stream)){
+ if(anti_space(buffer, main_stream)){ 
+ if(!strcmp(main_stream, "quit"))
+ {
+    *is_con = -1;
+	return 0;//0 could be anything. 
+ }
   if(is_ok(check(main_stream)) ){
    char tokens[MAX_TOKEN][MAX_NUBER_SIZE], num_tmp[MAX_TOKEN];
    char c;
@@ -144,9 +149,7 @@ float calculate_equation(char* buffer, float x, int *is_con){
         tokens[n++][1] = 0; // To make it string.
       break;
       default :
-       if(!strcmp(main_stream, "quit"))
-        *is_con = 0;
-       else error(buffer);
+        error(buffer);
       break;
       
      }
