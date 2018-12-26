@@ -27,12 +27,9 @@ int get_precendence(char op);
 int factorial(int num);
 int check_function(char *checking_pointer, const char * funtion_to_be_checked, char *tokens, int *pt_n, int *pt_k,char* buffer);
 
-float calculate_equation(float x){
- char buffer[MAX_CHAR_SIZE], main_stream[MAX_CHAR_SIZE];
- do{
- printf("= ");
+float calculate_equation(char* buffer, float x, int *is_con){
+ char main_stream[MAX_CHAR_SIZE];
  initial();
- fgets(buffer, MAX_CHAR_SIZE, stdin);
  if(anti_space(buffer, main_stream)){
   if(is_ok(check(main_stream)) ){
    char tokens[MAX_TOKEN][MAX_NUBER_SIZE], num_tmp[MAX_TOKEN];
@@ -148,8 +145,8 @@ float calculate_equation(float x){
       break;
       default :
        if(!strcmp(main_stream, "quit"))
-        return 0;
-       error(buffer);
+        *is_con = 0;
+       else error(buffer);
       break;
       
      }
@@ -187,13 +184,13 @@ float calculate_equation(float x){
     else if(next_token[0] == ')'){
      while (get_top() != '(')
       if(!calc())
-       return 0;
+       *is_con = 0;
      pop_c();//Discarding Left parentheses
     }
     else{//It should be an operator
      while(get_i_c() != -1 && get_precendence(get_top()) >= get_precendence(next_token[0]))
       if(!calc())
-       return 0;
+       *is_con = 0;
      push_c(next_token[0]);//s for sin, c for cos
     }
     index++;
@@ -201,14 +198,14 @@ float calculate_equation(float x){
    while(get_i_c() != -1)
    {
     if(!calc()){
-        return 0;
+        *is_con = 0;
     }
    }
 	return pop_n();
   }
+  else
+	  *is_con = 0;
  }
- }while(1);
- return 0;
 }
 /*
 int check_function(char *checking_pointer, const char * funtion_to_be_checked, char *tokens, int *pt_n, int *pt_k,char* buffer){
