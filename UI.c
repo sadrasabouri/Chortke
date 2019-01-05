@@ -24,7 +24,7 @@ char Choose()
 	char str[10];
 	puts("Choose a character to surf into different parts of Chortke:");
 	puts("e : for entering numerical equation");
-	puts("p : for plotting functions");
+	puts("g : for showing graph of your function");
 	puts("q : for quiting from Chortke :(");
 	fgets(str, 10, stdin);
 	return str[0];

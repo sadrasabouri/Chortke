@@ -13,6 +13,9 @@ Main source code of "Chortke"
 #define pi_official_num "3.1415926536"
 #define e_official_num "2.7182818285"
 
+char tokens[MAX_TOKEN][MAX_NUBER_SIZE], num_tmp[MAX_TOKEN];//Token array | temporary string for number.
+int n;
+
 int anti_space(char *spaced_one,char *none_spaced_one);
 int check(char *str);
 int is_ok(int x);
@@ -26,142 +29,170 @@ int is_num(char str[]);
 int get_precendence(char op);
 int factorial(int num);
 int check_function(char *checking_pointer, const char * funtion_to_be_checked, char *tokens, int *pt_n, int *pt_k,char* buffer);
+int to_token(char* buffer);
+float calculate_equation(float x, int *is_con);
 
-float calculate_equation(char* buffer, float x, int *is_con){
- char main_stream[MAX_CHAR_SIZE];
- initial();
- if(anti_space(buffer, main_stream)){ 
- if(!strcmp(main_stream, "quit"))
- {
-    *is_con = -1;
-	return 0;//0 could be anything. 
- }
-  if(is_ok(check(main_stream)) ){
-   char tokens[MAX_TOKEN][MAX_NUBER_SIZE], num_tmp[MAX_TOKEN];
-   char c;
-   int i = 0, k = 0, n = 0;
-   while( (c = main_stream[k]) != 0){
-    if(is_digit(c) || c == '.')//if character is number of dots.
-     num_tmp[i++] = c;
-    else{
-     switch(c){
-      case '-':
-       if(k == 0 || main_stream[k - 1] == '(') // negetive numbers.
-         num_tmp[i++] = c; 
-       else{
-        if(i != 0){
-        num_tmp[i] = 0;
-        strcpy(tokens[n++], num_tmp);
-        }
-        tokens[n][0]= c;
-        tokens[n++][1] = 0; // To make it string.
-        i = 0;
-        }
-      break;
-      //All operators:
-      case '+':
-      case '*':
-      case '/':
-      case '^':
-      case '!':
-      case '(':
-      case ')':
-       if(i != 0){
-        num_tmp[i] = 0;
-        strcpy(tokens[n++], num_tmp);
-       }
-       tokens[n][0]= c;
-       tokens[n++][1] = 0; // To make it string.
-       i = 0;
-      break;
-	  case 'p':
-       if(!strncmp(main_stream + k, "pi", 2))
-       {
-        strcpy(tokens[n++], pi_official_num);
-        k = k + 1;
-       }
-       else
-        error(buffer);
-      break;
-      
-      case 's':
-	   //check_function(main_stream + k, "sin", tokens, &n, &k, buffer);
-	   if(!strncmp(main_stream + k, "sin", 3))
-       {
-        strcpy(tokens[n++], "sin");
-        k = k + 2;
-       }
-	   else
-		   error(buffer);
-	  break;
-      
-      case 'c':
-       if(!strncmp(main_stream + k, "cos", 3))
-       {
-        strcpy(tokens[n++], "cos");
-        k = k + 2;
-       }
-       else error(buffer);
-      break;
-      
-      case 't':
-       if(!strncmp(main_stream + k, "tan", 3))
-       {
-        strcpy(tokens[n++], "tan");
-        k = k + 2;
-       }
-       else error(buffer);
-      break;
-      
-      case 'e':
-       if(!strncmp(main_stream + k, "exp", 3))
-       {
-        strcpy(tokens[n++], "exp");
-        k = k + 2;
-       }
-       else if (!strncmp(main_stream + k, "e", 1))
-			strcpy(tokens[n++], e_official_num);
-       else error(buffer);
-      break;
-      
-      case 'l':
-       if(!strncmp(main_stream + k, "ln", 2))
-       {
-        strcpy(tokens[n++], "ln");
-        k = k + 1;
-       }
-       else
-        error(buffer);
-      break;
-      
-      case 'a':
-       if(!strncmp(main_stream + k, "abs", 3))
-       {
-        strcpy(tokens[n++], "abs");
-        k = k + 2;
-       }
-       else
-        error(buffer);
-      break;
-      
-      case 'x'://Variable
-        tokens[n][0]= c;
-        tokens[n++][1] = 0; // To make it string.
-      break;
-      default :
-        error(buffer);
-      break;
-      
-     }
-    }
-   k++;
-   } 
-   if(i != 0){
-    num_tmp[i] = 0;
-    strcpy(tokens[n++], num_tmp);
-   }
-   /* -- Token process has been completed -- */
-   
+int to_token(char* buffer){
+	char main_stream[MAX_CHAR_SIZE];
+	n = 0;//
+	initial();
+	 if(anti_space(buffer, main_stream)){
+	 if(!strcmp(main_stream, "quit"))
+		return 1; 
+	  if(is_ok(check(main_stream))){
+	   char c;
+	   int i = 0, k = 0;
+	   while( (c = main_stream[k]) != 0){
+		if(is_digit(c) || c == '.')//if character is number of dots.
+		 num_tmp[i++] = c;
+		else{
+		 switch(c){
+		  case '-':
+		   if(k == 0 || main_stream[k - 1] == '(') // negetive numbers.
+			 num_tmp[i++] = c; 
+		   else{
+			if(i != 0){
+			num_tmp[i] = 0;
+			strcpy(tokens[n++], num_tmp);
+			}
+			tokens[n][0]= c;
+			tokens[n++][1] = 0; // To make it string.
+			i = 0;
+			}
+		  break;
+		  //All operators:
+		  case '+':
+		  case '*':
+		  case '/':
+		  case '^':
+		  case '!':
+		  case '(':
+		  case ')':
+		   if(i != 0){
+			num_tmp[i] = 0;
+			strcpy(tokens[n++], num_tmp);
+		   }
+		   tokens[n][0]= c;
+		   tokens[n++][1] = 0; // To make it string.
+		   i = 0;
+		  break;
+		  case 'p':
+		   if(!strncmp(main_stream + k, "pi", 2))
+		   {
+			strcpy(tokens[n++], pi_official_num);
+			k = k + 1;
+		   }
+		   else{
+			error(buffer);
+			return 2;
+		   }
+		  break;
+		  
+		  case 's':
+		   //check_function(main_stream + k, "sin", tokens, &n, &k, buffer);
+		   if(!strncmp(main_stream + k, "sin", 3))
+		   {
+			strcpy(tokens[n++], "sin");
+			k = k + 2;
+		   }
+		   else{
+			   error(buffer);
+			   return 2;
+		   }
+		  break;
+		  
+		  case 'c':
+		   if(!strncmp(main_stream + k, "cos", 3))
+		   {
+			strcpy(tokens[n++], "cos");
+			k = k + 2;
+		   }
+		   else{
+			   error(buffer);
+			   return 2;
+		   }
+		   break;
+		  
+		  case 't':
+		   if(!strncmp(main_stream + k, "tan", 3))
+		   {
+			strcpy(tokens[n++], "tan");
+			k = k + 2;
+		   }
+		  
+		   else{
+			   error(buffer);
+			   return 2;
+		   }
+		   break;
+		  
+		  case 'e':
+		   if(!strncmp(main_stream + k, "exp", 3))
+		   {
+			strcpy(tokens[n++], "exp");
+			k = k + 2;
+		   }
+		   else if (!strncmp(main_stream + k, "e", 1))
+				strcpy(tokens[n++], e_official_num);
+		   else{
+			   error(buffer);
+			   return 2;
+		   }
+		   break;
+		  
+		  case 'l':
+		   if(!strncmp(main_stream + k, "ln", 2))
+		   {
+			strcpy(tokens[n++], "ln");
+			k = k + 1;
+		   }
+		   else{
+			   error(buffer);
+			   return 2;
+		   } 
+		   break;
+		  
+		  case 'a':
+		   if(!strncmp(main_stream + k, "abs", 3))
+		   {
+			strcpy(tokens[n++], "abs");
+			k = k + 2;
+		   }
+		  
+		   else{
+			   error(buffer);
+			   return 2;
+		   }
+		   break;
+		  
+		  case 'x'://Variable
+			tokens[n][0]= c;
+			tokens[n++][1] = 0; // To make it string.
+		  break;
+		  default ://For future developments.
+			   error(buffer);
+			   return 2;
+		   break;
+		  
+		 }
+		}
+	   k++;
+	   } 
+	   if(i != 0){
+		num_tmp[i] = 0;
+		strcpy(tokens[n++], num_tmp);
+	   }
+	   /* -- Token process has been completed -- */
+	  }
+	  else
+		   return 2;//If string isn't ok.
+	 }
+	 
+		 
+	 return 0;
+}
+
+float calculate_equation(float x, int *is_con){  
    /* ---- For testing Token part ---
     for(int i = 0; i < n; i++)
     printf("%s\n", tokens[i]);
@@ -201,14 +232,10 @@ float calculate_equation(char* buffer, float x, int *is_con){
    while(get_i_c() != -1)
    {
     if(!calc()){
-        *is_con = 0;
-    }
+        *is_con = 0;	
+	}
    }
 	return pop_n();
-  }
-  else
-	  *is_con = 0;
- }
 }
 /*
 int check_function(char *checking_pointer, const char * funtion_to_be_checked, char *tokens, int *pt_n, int *pt_k,char* buffer){
@@ -331,8 +358,7 @@ void error(char* buffer){
  int i = 0;
  while(*(buffer + i) != '\n')
   putchar(*(buffer + i++));
- printf(" khodeti :D.");
- exit(0);
+ puts(" khodeti :D.");
 }
 int calc(){
  char operator = pop_c();
