@@ -19,6 +19,7 @@ int main(){
 		switch(option){
 			case 'e':
 				do{
+					is_continue = 1, is_quit = 0;
 					printf("= ");
 					fgets(buffer, MAX_CHAR_SIZE, stdin);
 					is_quit = to_token(buffer);
@@ -37,8 +38,10 @@ int main(){
 					/*-- Go for different x --*/
 					if(is_continue && !is_quit){
 							for(float x = a; x <= b; x += step){
+							is_continue = 1;
 								result = calculate_equation(x, &is_continue);
-								printf("( %f , %f )\n", x, result);
+								if(is_continue)
+									printf("( %f , %f )\n", x, result);
 							}
 					}
 					}while(is_quit != 1);
