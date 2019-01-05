@@ -8,7 +8,7 @@ In order to compile "Chortke" you can simply run this command in your terminal :
 gcc -o Chortke Chortke.c Processing.c Stack.c UI.c -lm
 ```
 ## Samples
-Feel free in using Chortke you can easily calculate any equation using ( , ) , + , - , ! , ^ , * , / , exp , ln , sin , cos , tan , cot , abs and so on.
+Feel free in using Chortke, you can easily calculate any equation using ( , ) , + , - , ! , ^ , * , / , exp , ln , sin , cos , tan , cot , abs and so on.
 Here you are some samples for using Chortke:
 ```
 = 2 + 2

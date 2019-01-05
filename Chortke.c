@@ -8,9 +8,12 @@
 int main(){
 	char option, buffer[MAX_CHAR_SIZE];
 	int is_continue = 1, is_quit = 0, is_end = 0;// a flag showing if wrong input is inputed or not.
-	float result;
+	float result, a, b, step, tmp_f ,tmp_e ,tmp_s;
+	
+	get_graph_configs(&a, &b, &step);
 	do{
-		(system("cls")); 
+		get_graph_configs(&a, &b, &step);
+		clear();
 		greeting();
 		option = Choose();//A UI.c function to let user choose the type he wants to work with. 
 		switch(option){
@@ -31,16 +34,26 @@ int main(){
 					printf("= ");
 					fgets(buffer, MAX_CHAR_SIZE, stdin);
 					is_quit = to_token(buffer);
-					
 					/*-- Go for different x --*/
 					if(is_continue && !is_quit){
-							for(float x = -10; x < 10; x += 0.1){
+							for(float x = a; x <= b; x += step){
 								result = calculate_equation(x, &is_continue);
 								printf("( %f , %f )\n", x, result);
 							}
 					}
 					}while(is_quit != 1);
 				break;
+			case 'c':
+				if(show_config(a, b, step) == 'y'){
+					printf("Enter first point of plotting: ");
+					scanf("%f", &tmp_f);
+					printf("Enter end point of plotting: ");
+					scanf("%f", &tmp_e);
+					printf("Enter step of plotting: ");
+					scanf("%f", &tmp_s);
+					set_graph_configs(tmp_f, tmp_e, tmp_s);
+				}
+			break;
 			case 'q':
 				is_end = 1;
 			break;
