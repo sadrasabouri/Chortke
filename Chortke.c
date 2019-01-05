@@ -32,7 +32,7 @@ int main(){
 			break;
 			case 'g':
 				do{
-					printf("= ");
+					printf("y = ");
 					fgets(buffer, MAX_CHAR_SIZE, stdin);
 					is_quit = to_token(buffer);
 					/*-- Go for different x --*/
