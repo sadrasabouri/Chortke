@@ -30,13 +30,17 @@ int main(){
 			do{
 				printf("= ");
 				fgets(buffer, MAX_CHAR_SIZE, stdin);
-				to_token(buffer);
+				is_quit = to_token(buffer);
 				
-				result = calculate_equation(0, &is_continue);
-				if(is_continue == 1)
-					printf("%f\n", result);
-			}while(is_continue != -1);
-		break;
+				/*-- Go for different x --*/
+				if(is_continue && !is_quit){
+						for(float x = -10; x < 10; x += 0.1){
+							result = calculate_equation(x, &is_continue);
+							printf("( %f , %f )\n", x, result);
+						}
+				}
+				}while(is_quit != 1);
+			break;
 	}
 	return 0;
 }
