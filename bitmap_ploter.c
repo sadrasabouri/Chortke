@@ -34,8 +34,8 @@ void write_bitmap(char *plot, int width, int height, int axis_color, int plot_co
       int b = is_on * plot_colors[2];
       if (x == height / 2 || y == width / 2){//axis lines
 		r = axis_colors[0];
-		b = axis_colors[1];
-		g = axis_colors[2];
+		g = axis_colors[1];
+		b = axis_colors[2];
 	  }
       if (r > 255) r = 255;
       if (g > 255) g = 255;

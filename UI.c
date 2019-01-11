@@ -24,9 +24,9 @@ void greeting();
 void bye();
 int input();
 void output(char output_str[10000]);
-char show_config(float start,float end, float step, int axis_color, int plot_color);
-void get_graph_configs(float *first, float *end, float *step, int *axis_color, int *plot_color);
-void set_graph_configs(float first, float end, float step, int axis_color, int plot_color);
+char show_config(float radius, int axis_color, int plot_color);
+void get_graph_configs(float *radius, int *axis_color, int *plot_color);
+void set_graph_configs(float radius, int axis_color, int plot_color);
 
 void clear(){
 	system(CLEAR_SCREEN);	
@@ -39,7 +39,7 @@ void greeting()
 	system("title Chortke");
 #endif
 //For linux.
- puts("Welcome to \"Chortke\"! :D");
+ puts("\x1b[31m""Welcome to \"Chortke\"! :D""\x1b[0m");
 }
 
 char Choose()
@@ -67,31 +67,27 @@ void bye()
  char str[] = "Bye!\nCome back Soon ;)"; // Add description!
  puts(str);
 }
-void get_graph_configs(float *first, float *end, float *step, int *axis_color, int *plot_color){
+void get_graph_configs(float *radius, int *axis_color, int *plot_color){
 	FILE *file_pointer;
 	file_pointer = fopen(CONFIG_DIR, "r");
-	fread(first, sizeof(float), 1, file_pointer);
-	fread(end, sizeof(float), 1, file_pointer);
-	fread(step, sizeof(float), 1, file_pointer);
+	fread(radius, sizeof(float), 1, file_pointer);
 	fread(axis_color, sizeof(float), 1, file_pointer);
 	fread(plot_color, sizeof(float), 1, file_pointer);	
 	fclose(file_pointer);
 }
-void set_graph_configs(float first, float end, float step, int axis_color, int plot_color){
+void set_graph_configs(float radius, int axis_color, int plot_color){
 	FILE *file_pointer;
 	file_pointer = fopen(CONFIG_DIR, "w");
-	fwrite(&first, sizeof(float), 1, file_pointer);
-	fwrite(&end, sizeof(float), 1, file_pointer);
-	fwrite(&step, sizeof(float), 1, file_pointer);	
+	fwrite(&radius, sizeof(float), 1, file_pointer);
 	fwrite(&axis_color, sizeof(float), 1, file_pointer);
 	fwrite(&plot_color, sizeof(float), 1, file_pointer);	
 	fclose(file_pointer);
 }
 
-char show_config(float start,float end, float step, int axis_color, int plot_color){
+char show_config(float radius, int axis_color, int plot_color){
 	char choice;
 	puts("---------------------Configuration---------------------");
-	printf("Start point : %.2f\nEnd point : %.2f\nStep size: %.2f\naxis color:0x%x\nplot color:0x%x\n", start, end, step, axis_color, plot_color);
+	printf("x Domain : -%.2f < x < %.2f\naxis color: 0x%x\nplot color: 0x%x\n", radius, radius, axis_color, plot_color);
 	puts("-------------------------------------------------------");
 	printf("Do you want to change it?(y/n):");
 	scanf(" %c", &choice);
