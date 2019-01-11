@@ -38,10 +38,9 @@ int main(){
 					fgets(buffer, MAX_CHAR_SIZE, stdin);
 					is_quit = to_token(buffer);
 					/*-- Go for different x --*/
-						
-						char plot[SIZE][SIZE] = {0};
-						float step = 2 * radius / SIZE;
 						if(is_continue && !is_quit){
+						  char plot[SIZE][SIZE] = {0};
+						  float step = 2 * radius / SIZE;
 						  for (float x = -radius; x < radius; x += step) {
 							is_continue = 1;
 							y = calculate_equation(x, &is_continue);
@@ -54,8 +53,9 @@ int main(){
 								plot[i][j] = 1;
 							}
 						  }
+						  
+						  write_bitmap((char *)plot, SIZE, SIZE, axis_color, plot_color, "plot.bmp");
 						}
-					  write_bitmap((char *)plot, SIZE, SIZE, axis_color, plot_color, "plot.bmp");
 					}while(is_quit != 1);
 				break;
 			case 'c':
