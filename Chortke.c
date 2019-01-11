@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define MAX_CHAR_SIZE 10000
+#define MAX_CHAR_SIZE 100000
 #define SIZE 1000
 
 int main(){
@@ -52,17 +52,9 @@ int main(){
 								if (j > SIZE - 1 || j < 0) continue;
 								plot[i][j] = 1;
 							}
-						  }/*
-								for(float x = a; x <= b; x += step){
-								is_continue = 1;
-									result = calculate_equation(x, &is_continue);
-									
-								if(is_continue)
-										printf("( %f , %f )\n", x, result);
-								}
-							*/
+						  }
 						}
-					  write_bitmap((char *)plot, SIZE, SIZE, "plot.bmp");
+					  write_bitmap((char *)plot, SIZE, SIZE, 0xFFFFFF, "plot.bmp");
 					}while(is_quit != 1);
 				break;
 			case 'c':
