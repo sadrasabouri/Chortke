@@ -30,18 +30,16 @@ void set_graph_configs(float first, float end, float step);
 //Bugy
 
 void clear(){
-#ifdef _WIN32
-	system(CLEAR_SCREEN);
-#endif
-
-#ifdef linux
-	system(CLEAR_SCREEN);
-#endif
-	
+	system(CLEAR_SCREEN);	
 }
 
 void greeting()
 {
+	
+#ifdef _WIN32
+	system("title Chortke");
+#endif
+//For linux.
  puts("Welcome to \"Chortke\"! :D");
 }
 
