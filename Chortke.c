@@ -1,6 +1,6 @@
-#include "Processing.h"
-#include "UI.h"
-#include "bitmap_ploter.h"
+#include "./Libs/Processing.h"
+#include "./Libs/UI.h"
+#include "./Libs/bitmap_ploter.h"
 #include <stdio.h>
 #include <stdlib.h>
 
