@@ -11,10 +11,10 @@ int main(){
 	char option, buffer[MAX_CHAR_SIZE];
 	int is_continue = 1, is_quit = 0, is_end = 0;// radius flag showing if wrong input is inputed or not.
 	float y, radius, tmp_r;
-	int	axis_color, plot_color, tmp_axc, tmp_plc;
+	int	axis_color, screen_color, plot_color, tmp_axc, tmp_plc, tmp_scrn;
 	do{
 	//Initial the configs of graph | defined in UI.c
-		get_graph_configs(&radius, &axis_color, &plot_color);
+		get_graph_configs(&radius, &axis_color, &screen_color, &plot_color);
 		clear();
 		greeting();
 		option = Choose();//A UI.c function to let user choose the type he wants to work with. 
@@ -54,19 +54,21 @@ int main(){
 							}
 						  }
 						  
-						  write_bitmap((char *)plot, SIZE, SIZE, axis_color, plot_color, "plot.bmp");
+						  write_bitmap((char *)plot, SIZE, SIZE, axis_color, screen_color, plot_color, "plot.bmp");
 						}
 					}while(is_quit != 1);
 				break;
 			case 'c':
-				if(show_config(radius, axis_color, plot_color) == 'y'){
+				if(show_config(radius, axis_color, screen_color, plot_color) == 'y'){
 					printf("Enter radius of your plotting(-r < x < r): ");
 					scanf("%f", &tmp_r);
 					printf("Enter color of axis(without 0x): ");
 					scanf("%x", &tmp_axc);
+					printf("Enter color of screen_color(without 0x): ");
+					scanf("%x", &tmp_scrn);
 					printf("Enter color of plot(without 0x): ");
 					scanf("%x", &tmp_plc);
-					set_graph_configs(tmp_r, tmp_axc, tmp_plc);
+					set_graph_configs(tmp_r, tmp_axc, tmp_scrn, tmp_plc);
 				}
 			break;
 			case 'q':

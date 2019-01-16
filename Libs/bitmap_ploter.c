@@ -4,7 +4,7 @@
 
 #include "bitmap_ploter.h"
 
-void write_bitmap(char *plot, int width, int height, int axis_color, int plot_color, const char *filename) {
+void write_bitmap(char *plot, int width, int height, int axis_color,int screen_color, int plot_color, const char *filename) {
   FILE *f;
   unsigned char *img = NULL;
   int filesize = 54 + 3 * width * height, is_on;
@@ -21,18 +21,35 @@ void write_bitmap(char *plot, int width, int height, int axis_color, int plot_co
   plot_colors[1] = plot_color % 0x100;
   plot_color /= 0x100;
   plot_colors[0] = plot_color % 0x100; 
+  
+  int screen_colors[3];
+  
+  screen_colors[2] = screen_color % 0x100;
+  screen_color /= 0x100;
+  screen_colors[1] = screen_color % 0x100;
+  screen_color /= 0x100;
+  screen_colors[0] = screen_color % 0x100; 
+  
   img = (unsigned char *) malloc(3 * width * height);//Reserve 3*width*height bytes from memory.
-  memset(img, 0, 3 * width * height);//set all reserved memory with 0.
+  memset(img, 1, 3 * width * height);//set all reserved memory with 0.
 
+	  int r, g, b;
   for(int i = 0; i < width; i++) {
     for(int j = 0; j < height; j++) {
       int x = i, y = j;
 	  is_on = plot[i * width + j];
 	  // simply plot[i][j]*255 | if r is plot[i][j] = 0 r is zero else if plot[i][j] = 1 r is 255.
-      int r = is_on * plot_colors[0];
-      int g = is_on * plot_colors[1];
-      int b = is_on * plot_colors[2];
-      if (x == height / 2 || y == width / 2){//axis lines
+		if(is_on == 1){
+		  r = plot_colors[0];
+		  g = plot_colors[1];
+		  b = plot_colors[2];
+		}
+		else{
+		r = screen_colors[0];
+		g = screen_colors[1];
+		b = screen_colors[2];
+		}
+		if (x == height / 2 || y == width / 2){//axis lines
 		r = axis_colors[0];
 		g = axis_colors[1];
 		b = axis_colors[2];
