@@ -15,6 +15,6 @@ int get_precendence(char op);
 int factorial(int num);
 int check_function(char *checking_pointer, const char * funtion_to_be_checked, char *tokens, int *pt_n, int *pt_k,char* buffer);
 int to_token(char* buffer);
-float calculate_equation(float x, int *is_con);
+float calculate_equation(float x,float y, int *is_con);
 
 #endif

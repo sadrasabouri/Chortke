@@ -30,7 +30,7 @@ int get_precendence(char op);
 int factorial(int num);
 int check_function(char *checking_pointer, const char * funtion_to_be_checked, char *tokens, int *pt_n, int *pt_k,char* buffer);
 int to_token(char* buffer);
-float calculate_equation(float x, int *is_con);
+float calculate_equation(float x, float y, int *is_con);
 
 int to_token(char* buffer){
 	char main_stream[MAX_CHAR_SIZE];
@@ -169,6 +169,10 @@ int to_token(char* buffer){
 			tokens[n][0]= c;
 			tokens[n++][1] = 0; // To make it string.
 		  break;
+		  case 'y'://Variable
+			tokens[n][0]= c;
+			tokens[n++][1] = 0; // To make it string.
+		  break;
 		  default ://For future developments.
 			   error(buffer);
 			   return 2;
@@ -192,7 +196,7 @@ int to_token(char* buffer){
 	 return 0;
 }
 
-float calculate_equation(float x, int *is_con){  
+float calculate_equation(float x,float y, int *is_con){  
    /* ---- For testing Token part ---
     for(int i = 0; i < n; i++)
     printf("%s\n", tokens[i]);
@@ -211,8 +215,10 @@ float calculate_equation(float x, int *is_con){
     strcpy(next_token, tokens[index]);
     if(is_num(next_token))
      push_n(atof(next_token));
-    else if(next_token[0] == 'x')// X = 0
+    else if(next_token[0] == 'x')
      push_n(x);
+	else if(next_token[0] == 'y')
+	 push_n(y);
     else if(next_token[0] == '(')
      push_c('(');
     else if(next_token[0] == ')'){

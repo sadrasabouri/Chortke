@@ -45,7 +45,8 @@ char Choose()
 	char str[10];
 	puts("Choose a character to surf into different parts of Chortke:");
 	puts("e : for entering numerical equation");
-	puts("g : for graphing of your function");
+	puts("g : for graphing function(y = f(x))");
+	puts("p : for plotting equation(0 = f(x,y))");
 	puts("s : for solving equation for x");
 	puts("c : for see/change configure your plot");
 	puts("q : for quiting from Chortke :(");
