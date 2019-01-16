@@ -12,9 +12,7 @@ Our library for interacting with user:
 
 #ifdef _WIN32
 	#define CLEAR_SCREEN "cls"
-#endif
-
-#ifdef linux
+#else
 	#define CLEAR_SCREEN "clear"
 #endif
 //Prototypes :

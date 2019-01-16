@@ -10,9 +10,7 @@
 
 #ifdef _WIN32
 	#define SHOW_PLOT "plot.bmp"
-#endif
-
-#ifdef linux
+#else
 	#define SHOW_PLOT "./plot.bmp"
 #endif
 
