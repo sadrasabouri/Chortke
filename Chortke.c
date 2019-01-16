@@ -6,7 +6,8 @@
 
 #define MAX_CHAR_SIZE 100000
 #define SIZE 1000
-
+#define ACCURACY 0.001
+#define STEP_SIZE 0.01
 
 #ifdef _WIN32
 	#define SHOW_PLOT "plot.bmp"
@@ -81,6 +82,28 @@ int main(){
 			break;
 			case 'q':
 				is_end = 1;
+			break;
+			case 's':
+				do{
+					int nthx = 1;
+					printf("0 = ");
+					fgets(buffer, MAX_CHAR_SIZE, stdin);
+					is_quit = to_token(buffer);
+					/*-- Go for different x --*/
+						if(is_continue && !is_quit){
+						  for (float x = -radius; x < radius; x += STEP_SIZE) {
+							is_continue = 1;
+							y = calculate_equation(x, &is_continue);
+							if(is_continue)
+								if( (y > 0 ? y : (-1) * y) < ACCURACY){
+									printf("X%d: %0.3f\n", nthx, x);
+									nthx++;
+								}
+						  }
+						  if(nthx == 1)
+							  printf("No answer for x in the domain with accurecy of %f.\n", ACCURACY);
+						}
+					}while(is_quit != 1);
 			break;
 		}
 	}while(!is_end);
