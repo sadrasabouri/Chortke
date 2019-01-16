@@ -5,10 +5,10 @@ This is a project done by three undergraduate students at Sharif University of T
 ## Compile
 In order to compile "Chortke" you can simply run this command in your terminal :
 ```
-gcc -o Chortke Chortke.c Stack.c -lm
+gcc -o Chortke Chortke.c Processing.c Stack.c UI.c bitmap_ploter.c -lm
 ```
 ## Samples
-Feel free in using Chortke you can easily calculate any equation using ( , ) , + , - , ! , ^ , * , / , exp , ln , sin , cos , tan , cot , abs and so on.
+Feel free in using Chortke, you can easily calculate any equation using ( , ) , + , - , ! , ^ , * , / , exp , ln , sin , cos , tan , cot , abs and so on.
 Here you are some samples for using Chortke:
 ```
 = 2 + 2
