@@ -7,6 +7,15 @@
 #define MAX_CHAR_SIZE 100000
 #define SIZE 1000
 
+
+#ifdef _WIN32
+	#define SHOW_PLOT "plot.bmp"
+#endif
+
+#ifdef linux
+	#define SHOW_PLOT "./plot.bmp"
+#endif
+
 int main(){
 	char option, buffer[MAX_CHAR_SIZE];
 	int is_continue = 1, is_quit = 0, is_end = 0;// radius flag showing if wrong input is inputed or not.
@@ -55,6 +64,7 @@ int main(){
 						  }
 						  
 						  write_bitmap((char *)plot, SIZE, SIZE, axis_color, screen_color, plot_color, "plot.bmp");
+						  system(SHOW_PLOT);
 						}
 					}while(is_quit != 1);
 				break;
