@@ -12,7 +12,7 @@
 #ifdef _WIN32
 	#define SHOW_PLOT "plot.bmp"
 #else
-	#define SHOW_PLOT "./plot.bmp"
+	#define SHOW_PLOT "display plot.bmp"
 #endif
 
 int main(){
