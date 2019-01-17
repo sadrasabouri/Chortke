@@ -291,6 +291,10 @@ int check(char *str){
     return 4;
    paran--;
   }
+  else if(c == '.'){
+	if(*(str + i + 1) == '.')
+		return 7;
+  }
   if(is_operator(c) && is_operator(*(str + i + 1)) && c != '!')
    return 2;
   c = *(str + ++i);
@@ -328,6 +332,9 @@ int is_ok(int x){
   break;
   case 6:
    return 0;
+  case 7:
+	puts("double dot (..) collision!");
+	return 0;
   break;
  }
 }
