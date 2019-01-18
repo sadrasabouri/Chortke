@@ -273,6 +273,8 @@ int anti_space(char *spaced_one,char *none_spaced_one){
  *(none_spaced_one + j) = 0;
  return 1;
 }
+
+/*--- Function for impressing errors ---*/
 int check(char *str){
  int i = 0, paran = 0, op_collision = 0;
  char c = *str;
@@ -297,6 +299,10 @@ int check(char *str){
 	if(*(str + i + 1) == '.')
 		return 7;
   }
+  if((is_digit(c) || c == '.') && (*(str + i + 1) == 'x' || *(str + i + 1) == 'y'))
+	  return 4;
+  if((c == 'x' || c == 'y') && (is_digit(*(str + i + 1)) || *(str + i + 1) == '.'))
+	  return 4;
   if(is_operator(c) && is_operator(*(str + i + 1)) && c != '!')
    return 2;
   c = *(str + ++i);
