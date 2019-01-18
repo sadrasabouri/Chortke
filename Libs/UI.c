@@ -49,6 +49,7 @@ char Choose()
 	puts("p : for plotting equation(0 = f(x,y))");
 	puts("s : for solving equation for x");
 	puts("c : for see/change configure your plot");
+	puts("i : for evaluating integral of y = f(x) from a to b");
 	puts("q : for quiting from Chortke :(");
 	fgets(str, 10, stdin);
 	return str[0];
