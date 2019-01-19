@@ -31,7 +31,7 @@ void write_bitmap(char *plot, int width, int height, int axis_color,int screen_c
   screen_colors[0] = screen_color % 0x100; 
   
   img = (unsigned char *) malloc(3 * width * height);//Reserve 3*width*height bytes from memory.
-  memset(img, 1, 3 * width * height);//set all reserved memory with 0.
+  memset(img, 0, 3 * width * height);//set all reserved memory with 0.
 
 	  int r, g, b;
   for(int i = 0; i < width; i++) {

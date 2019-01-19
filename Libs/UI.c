@@ -36,7 +36,6 @@ void greeting()
 #ifdef _WIN32
 	system("title Chortke");
 #endif
-//For linux.
  puts("\x1b[31m""Welcome to \"Chortke\"! :D""\x1b[0m");
 }
 
