@@ -92,7 +92,7 @@ void set_graph_configs(float radius, int axis_color,int screen_color, int plot_c
 char show_config(float radius, int axis_color,int screen_color, int plot_color){
 	char choice;
 	puts("---------------------Configuration---------------------");
-	printf("x Domain : -%.2f < x < %.2f\naxis color: 0x%x\nscreen color:0x%x\nplot color: 0x%x\n", radius, radius, axis_color, screen_color, plot_color);
+	printf("x Domain : -%.2f < x < %.2f\naxis color: 0x%06x\nscreen color:0x%06x\nplot color: 0x%06x\n", radius, radius, axis_color, screen_color, plot_color);
 	puts("-------------------------------------------------------");
 	printf("Do you want to change it?(y/n):");
 	scanf(" %c", &choice);
