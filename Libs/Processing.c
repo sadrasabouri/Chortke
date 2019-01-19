@@ -284,6 +284,8 @@ int check(char *str){
    return 5;
  while(c != 0){
   if(c == '('){
+   if(*(str + i + 1)==')')
+	   return 8;
    if (i != 0 && is_digit(*(str + i - 1)))
     return 4;
    if(is_operator(*(str + i + 1)) && *(str + i + 1) != '-')
@@ -342,6 +344,10 @@ int is_ok(int x){
    return 0;
   case 7:
 	puts("double dot (..) collision!");
+	return 0;
+  break;
+  case 8:
+	puts("empty parentheses!");
 	return 0;
   break;
  }
