@@ -276,7 +276,7 @@ int anti_space(char *spaced_one,char *none_spaced_one){
 
 /*--- Function for impressing errors ---*/
 int check(char *str){
- int i = 0, paran = 0, op_collision = 0;
+ int i = 0, paran = 0;
  char c = *str;
  if(c == 0)
   return 6;
@@ -292,10 +292,12 @@ int check(char *str){
     return 5;
    paran++;
   }
-  else if(c == ')'){
+  else if(c == ')'){  
    if (*(str + i + 1) != 0 && is_digit(*(str + i + 1)))
     return 4;
    paran--;
+   if (paran < 0)
+	   return 1;
   }
   else if(c == '.'){
 	if(*(str + i + 1) == '.')
