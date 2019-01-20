@@ -31,6 +31,7 @@ int factorial(int num);
 int check_function(char *checking_pointer, const char * funtion_to_be_checked, char *tokens, int *pt_n, int *pt_k,char* buffer);
 int to_token(char* buffer);
 float calculate_equation(float x, float y, int *is_con);
+void set_lower(char* spaced_one);
 
 int to_token(char* buffer){
 	char main_stream[MAX_CHAR_SIZE];
@@ -255,11 +256,12 @@ int check_function(char *checking_pointer, const char * funtion_to_be_checked, c
 }
 */
 int anti_space(char *spaced_one,char *none_spaced_one){
- int i = 0, j = 0;
- while(*(spaced_one + i) != '\n'){
-  if(*(spaced_one + i) != ' '){
-   *(none_spaced_one + j) = *(spaced_one + i);
-   j++;
+  int i = 0, j = 0;
+  set_lower(spaced_one);
+  while(*(spaced_one + i) != '\n'){
+    if(*(spaced_one + i) != ' '){
+      *(none_spaced_one + j) = *(spaced_one + i);
+      j++;
   }
   else if(is_digit(to_forward(spaced_one, i)) && is_digit(to_downward(spaced_one, i))){
         //Just for 5 6 2  = 562 mode
@@ -271,6 +273,8 @@ int anti_space(char *spaced_one,char *none_spaced_one){
  *(none_spaced_one + j) = 0;
  return 1;
 }
+
+/*--- Function for impressing errors ---*/
 int check(char *str){
  int i = 0, paran = 0, op_collision = 0;
  char c = *str;
@@ -280,6 +284,8 @@ int check(char *str){
    return 5;
  while(c != 0){
   if(c == '('){
+   if(*(str + i + 1)==')')
+	   return 8;
    if (i != 0 && is_digit(*(str + i - 1)))
     return 4;
    if(is_operator(*(str + i + 1)) && *(str + i + 1) != '-')
@@ -291,6 +297,14 @@ int check(char *str){
     return 4;
    paran--;
   }
+  else if(c == '.'){
+	if(*(str + i + 1) == '.')
+		return 7;
+  }
+  if((is_digit(c) || c == '.') && (*(str + i + 1) == 'x' || *(str + i + 1) == 'y'))
+	  return 4;
+  if((c == 'x' || c == 'y') && (is_digit(*(str + i + 1)) || *(str + i + 1) == '.'))
+	  return 4;
   if(is_operator(c) && is_operator(*(str + i + 1)) && c != '!')
    return 2;
   c = *(str + ++i);
@@ -328,6 +342,13 @@ int is_ok(int x){
   break;
   case 6:
    return 0;
+  case 7:
+	puts("double dot (..) collision!");
+	return 0;
+  break;
+  case 8:
+	puts("empty parentheses!");
+	return 0;
   break;
  }
 }
@@ -483,4 +504,12 @@ int factorial(int num) {
   result *= i;
  }
   return result;
+}
+void set_lower(char* spaced_one){
+  int i = 0;
+  while(spaced_one[i] != 0){
+	if(spaced_one[i] >= 'A' && spaced_one[i] <= 'Z')
+		spaced_one[i] = spaced_one[i] - ('A' - 'a');
+    i++;
+  }
 }

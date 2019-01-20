@@ -3,11 +3,13 @@
 #include "./Libs/bitmap_ploter.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define MAX_CHAR_SIZE 100000
 #define SIZE 1000
 #define ACCURACY 0.01
 #define STEP_SIZE 0.01
+#define INTERVAL_NUMBER 10000
 
 #ifdef _WIN32
 	#define SHOW_PLOT "plot.bmp"
@@ -120,6 +122,43 @@ int main(){
 						}
 					}while(is_quit != 1);
 			break;
+			case 'i':
+				do{
+					float a, b, integral = 0;
+					char main_stream[MAX_CHAR_SIZE];
+					printf("y = ");
+					fgets(buffer, MAX_CHAR_SIZE, stdin);
+					strcpy(main_stream, buffer);
+					is_quit = to_token(main_stream);
+					/*-- Go for different x --*/
+						if(is_continue && !is_quit){
+						  printf("a = ");
+						  fgets(buffer, MAX_CHAR_SIZE, stdin);
+						  to_token(buffer);//Biasing stacks
+						  y = calculate_equation(0, 0, &is_continue);
+						  if(is_continue)
+							  a = y;
+					      printf("b = ");
+						  fgets(buffer, MAX_CHAR_SIZE, stdin);
+						  to_token(buffer);//Biasing stacks
+						  y = calculate_equation(0, 0, &is_continue);
+						  if(is_continue)
+							  b = y;
+					      float step = (b - a) / INTERVAL_NUMBER;//(b - a) / n
+						  to_token(main_stream);//Biasing stacks
+						  for (float x = a; x <=b; x += step) {
+							is_continue = 1;
+							y = calculate_equation(x, 0, &is_continue);
+							if(is_continue)
+							  integral += y * step;//sigma of f(x*)dx
+						  }
+						  if(is_continue){
+							  main_stream[strlen(main_stream) - 1] = 0;
+							  printf("S(%s)dx = %.4f\n", main_stream, integral);
+						  }
+						}
+					}while(is_quit != 1);
+				break;
 			case 'c':
 				if(show_config(radius, axis_color, screen_color, plot_color) == 'y'){
 					printf("Enter radius of your plotting(-r < x < r): ");

@@ -36,7 +36,6 @@ void greeting()
 #ifdef _WIN32
 	system("title Chortke");
 #endif
-//For linux.
  puts("\x1b[31m""Welcome to \"Chortke\"! :D""\x1b[0m");
 }
 
@@ -49,6 +48,7 @@ char Choose()
 	puts("p : for plotting equation(0 = f(x,y))");
 	puts("s : for solving equation for x");
 	puts("c : for see/change configure your plot");
+	puts("i : for evaluating integral of y = f(x) from a to b");
 	puts("q : for quiting from Chortke :(");
 	fgets(str, 10, stdin);
 	return str[0];
@@ -91,7 +91,7 @@ void set_graph_configs(float radius, int axis_color,int screen_color, int plot_c
 char show_config(float radius, int axis_color,int screen_color, int plot_color){
 	char choice;
 	puts("---------------------Configuration---------------------");
-	printf("x Domain : -%.2f < x < %.2f\naxis color: 0x%x\nscreen color:0x%x\nplot color: 0x%x\n", radius, radius, axis_color, screen_color, plot_color);
+	printf("x Domain : -%.2f < x < %.2f\naxis color: 0x%06x\nscreen color:0x%06x\nplot color: 0x%06x\n", radius, radius, axis_color, screen_color, plot_color);
 	puts("-------------------------------------------------------");
 	printf("Do you want to change it?(y/n):");
 	scanf(" %c", &choice);
