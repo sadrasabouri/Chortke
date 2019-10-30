@@ -27,7 +27,7 @@ q : for quiting from Chortke :(
 
 **Numerical equation mode :**
 This mode allows you to see the numerical answer of your numerical equation. 
-Fallow the samples bellow and you'll catch everything about this mode.
+Follow the samples bellow and you'll catch everything about this mode.
 ```
 = 2 + 2
 ``` 
@@ -107,7 +107,7 @@ S(x^2 + (sin(x)))dx = 3607.0842
 ```
 
 **Configuration menu :**
-This menu whill show your plotting configuration and ask you if you want to change any of them.
+This menu will show your plotting configuration and ask you if you want to change any of them.
 ```
 ---------------------Configuration---------------------
 x Domain : -10.00 < x < 10.00
